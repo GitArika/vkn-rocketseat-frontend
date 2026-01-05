@@ -1,0 +1,30 @@
+@if (authService.isAuthenticated()) {
+<header class="top-bar">
+  <div class="brand">
+    <span class="logo">OP</span>
+    <div>
+      <strong>{{ title }}</strong>
+      <small>Gestão de clientes e ordens</small>
+    </div>
+  </div>
+
+  <nav>
+    @if (authService.currentUser()?.perfil === 'DONO') {
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    }
+    <a routerLink="/clientes" routerLinkActive="active">Clientes</a>
+    <a routerLink="/clientes/novo" routerLinkActive="active" class="nav-btn-highlight">+ Novo Cliente</a>
+    <a routerLink="/ordens" routerLinkActive="active">Ordens</a>
+    <a routerLink="/relatorios" routerLinkActive="active">Relatórios</a>
+  </nav>
+  <div class="user-info">
+    <span>{{ authService.currentUser()?.nome }}</span>
+    <button type="button" class="btn-logout" (click)="logout()">Sair</button>
+  </div>
+</header>
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
+} @else {
+<router-outlet></router-outlet>
+}
